@@ -1,0 +1,3 @@
+#!/bin/sh
+echo $1
+/Applications/MacDown.app/Contents/MacOS/MacDown $1
