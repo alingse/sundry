@@ -1,0 +1,47 @@
+#!/bin/sh
+
+PIDFILE=/run/openvpn.pid
+
+ start_client () {
+    if [ -f $PIDFILE ]
+    then
+        echo 'already started'
+        exit 3 
+    else
+        echo 'starting'
+        openvpn --cd /usr/local/openvpn/ --config client.conf;
+        echo 'sucess'
+    fi
+}
+
+ stop_client () {
+    if [ -f $PIDFILE ]
+    then
+        echo 'kill process '`cat $PIDFILE`
+        kill `cat $PIDFILE`
+        rm $PIDFILE
+    else
+        echo 'pid file not exists'
+        exit 2
+    fi
+}
+
+ restart_client() {
+    stop_client
+    start_client
+}
+
+case "$1" in
+
+    start) start_client
+          ;;
+    
+    stop) stop_client
+          ;;
+
+    restart) restart_client
+          ;;
+    *)
+esac
+
+exit 0
