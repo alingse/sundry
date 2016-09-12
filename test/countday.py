@@ -47,9 +47,7 @@ class TestCount(unittest.TestCase):
         this is calculate by python `datetime` module
         '''
         thisday = datetime.datetime(year,month,day)
-        start = datetime.datetime(year,1,1)
-        diff = thisday - start
-        cnt = diff.days + 1
+        cnt = thisday.timetuple().tm_yday
         return cnt
 
     def check(self,year,month,day):
